@@ -3,11 +3,9 @@
 #服务：/etc/init.d/crond status
 #配置crontab开机启动： chkconfig crond on
 
-*		*		*		*		* 				username					executed
+*	*	*	*	* 	username	executed
 分钟   小时	   日期     月  day of week		指定用户或不写（当前用户）   将要被执行的任务命令
 0-59   0-23    1-31    1-12     0-7（0与7都是周日）
-
-
 
 
 #对于系统级别的计划任务，需要执行的命令和脚本都放在如下文件内
