@@ -1,0 +1,46 @@
+任何awk语句都是由模式和动作组成，一个awk脚本可以有多个语句。
+模式决定动作语句的触发条件和触发时间。
+特殊字段：
+BEGIN语句设置计数和打印头部，在任何动作之前进行。
+END语句输出统计结果，在完成动作之后执行。
+
+分隔符默认是 空格，也可以使用“-F”来改变分隔符的定义，比如将分隔符改为“逗号”或其它。
+-F, -F:
+
+$n是 将要输出的列的序号，如$2，为输出整个第2列
+
+$0 是输出全部信息
+
+#自定义年月日显示方式
+Year:2016	Month:Apr	Day:Mon
+
+date | awk '{print "Year:"$6"" "\t Month:"$2"" "\t Day:"$1""}'
+
+解释：
+以默认空格为分隔符，$6为输出第六列，$2为输出第2列，$1为输出第一列
+其中，\t 为table制表符
+
+#以“：”冒号作为分隔符，显示第一行
+awk -F: '{print $1}' /etc/passwd
+
+#显示第一列到第三列的内容
+awk ’{print $1,$3}‘ /etc/passwd
+
+
+BEGIN与END的使用
+
+#添加 列的头部信息，并在输出的最后添加一句文本信息
+
+awk 'BEGIN {print "name level result\n"}' {print $1 $2 $3} END {print "end of results"} /etc/passwd
+
+#输出第二列大于5分内容
+awk '$2 >=5 {print $0}' /etc/passwd
+ 
+#显示用户名为andy 与（或） 第二列为“9”的记录内容
+awk '{if ($1 == “andy” && $2=="9") print $0}' /etc/passwd
+awk '{if ($1 == “andy” || $2=="9") print $0}' /etc/passwd
+
+
+
+
+
