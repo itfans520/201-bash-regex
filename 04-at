@@ -1,0 +1,26 @@
+#at 一次性的计划任务配置命令，其服务为 atd
+
+#在15:55执行一次 echo 'date' > /tmp/date.txt
+at 15:55
+at> echo 'date' >/tmp/date
+at> ctrl +d #结束配置
+at> 如果是xshell 链接，需要按ctrl+backspace来结束配置
+
+#其它的命令书写方法
+at 15:55 2016-04-12
+
+at now +10min
+
+#查看都有哪些at计划任务待执行
+at -l
+
+#每一个at计划任务都还在 /var/spool/at/* 中被以可执行的脚本文件的形式保存
+
+#删除计划任务
+
+at -l	#先查看被创建的计划任务
+
+atrm 2	#删除 被创建的计划任务的 job number 序号
+
+
+
