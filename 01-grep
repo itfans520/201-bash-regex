@@ -1,0 +1,37 @@
+#查找“以lizhen开头与结尾的字符，并附行号，被查找字体高亮”
+开头：grep -n ^lizhen --color /etc/passwd
+结尾：grep -n lizhen$ --color /etc/passwd
+
+#转意字符的使用
+grep -n \' --color /etc/passwd
+
+# *号 ，在正则表达式中，代表“无穷个‘前一个字符’”
+grep -n lizh* --color /etc/passwd
+#匹配两个o时，实际上要写3个o，前2个o代表要查找的内容，第三个o代表匹配的内容
+grep ooo* -n --color /etc/passwd
+
+# .号，正则表达式中，代表任意字符
+#查找以r开头并且以t结束，且长度为4个字符的行
+grep ^r..t passwd
+
+#利用数组的方式，可以同时匹配多个字符
+grep -n li[zhen] --color /etc/passwd
+表示匹配：liz、lih、lie等等组合方式的匹配信息
+
+#搜索不以 #号开头的字符
+grep ^[^#] /etc/passwd
+
+#输出包含数字0-9的所有字符
+grep [0-9] --color /etc/passwd
+
+#输出以所有大写字母开头的文本（小写字母同理）
+grep [A-Z] --color /etc/passwd
+
+#不以所有字母开头的文件进行输出
+grep ^[a-zA-Z] /etc/passwd
+
+#输出 “空行”及“行号”
+grep -n ^$ /etc/passwd
+
+#查找以g开头与以g结尾，且中间可有可无的字符串
+grep ^g.*g --color /etc/passwd
