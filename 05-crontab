@@ -1,4 +1,5 @@
 #周期性的计划任务命令
+#crontab的执行日志会放到/var/log/cron中
 #crontab 的 配置文件  /etc/crontab
 #服务：/etc/init.d/crond status
 #配置crontab开机启动： chkconfig crond on

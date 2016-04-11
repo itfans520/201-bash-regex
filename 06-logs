@@ -1,0 +1,36 @@
+#linux系统日志存放在/var/log下
+#常用系统日志如下：
+核心启动日志： /var/log/dmesg
+系统报错或重启服务等日志：/var/log/messages
+邮件系统日志： /var/log/maillog
+cron(定制任务日志)日志：/var/log/cron
+验证系统登录或者说与验证相关的内容日志：/var/log/secure
+记录所有的登入与登出： /var/log/wtmp
+记录每个用户最后的登入信息：/var/log/lastlog
+记录错误的登录尝试: /var/log/btmp
+
+#last命令： 查看所有登录过系统的用户与IP
+#lastb：查看登录错误的相关信息
+
+#主要的7中日志分类
+
+安全认证相关：authpriv
+at与cron定时任务相关： cron
+后台进程相关：daemon
+内核产生：kern
+打印系统产生的日志：lpr
+邮件系统相关：mail
+日志服务本身：syslog
+
+#日志级别（由轻到重）
+debug——排错信息，专业人员希望看到的信息；
+info——正常的信息；
+notice——需要注意的信息；
+warn——警告信息；
+err(error)——错误信息；
+crit(critical)——关键的错误信息；
+alert——报警信息，需要高度关注的信息；
+emerg(emergency)——紧急且突发的事件，比如系统内核故障或软件的关键文件损坏导致的各种异常（含系统级别的异常）；
+
+#提供给用户自定义的系统保留级别（其它第三方程序也可以使用）
+local0-local7，一共8个类型
