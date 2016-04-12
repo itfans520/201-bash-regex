@@ -1,0 +1,35 @@
+#配置远程日志服务器，实现日志集中管理
+
+##在rsyslog服务器端配置rsyslog.conf文件，取消被注释的配置如下
+$ModLoad imtcp.so
+$InputTCPServerRun 514
+允许通过tcp 514端口接收tcp日志
+保存后重启rsyslog服务： /etc/init.d/rsyslog restart
+查看是否启动成功： netstat -anutp | grep 514
+# -anutp  参数说明
+-a:所有 
+-n：ip与端口号都是以数字的方式显示
+-u：udp协议
+-t：tcp协议
+-p：pid进程
+
+##客户端配置
+#在客户端的rsyslog.conf文件中，配置如下：
+增加
+*.*		@@192.168.1.63:514
+其中，@@代表tcp，@代表udp，1192.168.1.63是rsyslog服务器的IP地址
+重启rsyslog服务，使其生效
+
+##服务端的/var/log/message中就会接受来自客户端的日志信息了。
+
+
+
+
+
+
+  
+
+
+
+
+
