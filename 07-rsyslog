@@ -1,0 +1,63 @@
+#rsyslog.conf 文件的配置文件路径
+#kern.*  代表 内核类型的所有级别的日志，*代表所有级别
+#其它类型的日志信息均在rsyslog.conf文件中进行了配置；
+
+# . 代表：比后面还要高的等级都被记录下来，比如：
+mail.info 代表只要是mail类型的信息，而且该信息等级高于info（包括info本身）时，就会被记录下来。
+# .= 代表：所需要的等级就是后面接的等级而已，其它的都不要；
+# .! 代表：不等于，即除了该等级外的其他等级都记录；
+例如：
+cron.none : 对于cron类型日志不记录任何信息；
+cron.=err : 对于cron类型日志只记录err级别的信息；
+cron.err  : 对于cron类型日志不记录大于err级别的信息；
+cron.!err : 对于cron类型日志不记录err级别的信息，其他级别都记录。
+
+# /var/log/maillog 前面有一个“-”，即 -/var/log/maillog
+由于邮件所产生的信息比较多，因此我们希望邮件产生的信息先存储在速度不较快的内存中（buffer),
+等到数据量够大了才一次性的将所有数据都填入磁盘内，这样将有利于减少对磁盘读写的次数，减少IO
+的读写开销。
+但是，由于信息是暂时存在内存中的，所以如果当非正常关机等情况出现时（比如断电等），将会丢失一部
+份日志数据。
+
+#rsyslog服务重启
+service rsyslog restart/start/stop
+
+#rsyslog服务开机自动启动
+chkconfig rsyslog on
+
+#举例：将ssh服务的日志调整到local0中，并保存到/var/log/sshd.log中
+（1）将sshd_config文件中的日志路径更改为local0
+（2）重启sshd服务；
+（3）将rsyslog.conf中添加一条local0    /var/log/sshd.log 配置参数；
+（4）重启rsyslog服务；
+（5）此时，便实现了将ssh服务日志调整记录位置的需求了。
+
+#避免日志文件被删除
+chattr +a /var/log/sshd.log
+
+#日志回滚（截断）
+logrotate (日志回滚（截断）的过程：创建新文件、改名旧文件、重启服务)
+
+#logrotate的配置文件路径
+vim /etc/logrotate.conf
+vim /etc/logrotate.d/*
+
+#/etc/logrotate.conf 参数说明
+weekly —— 预设每周对日志文件进行一次rotate
+rotate 4 ——保留几个日志文件，预设是保留4个
+create —— 回滚日志后，创建一个新的空文件来存储新的数据
+
+#上述3个参数是全局配置，下面举例针对指定的日志文件的回滚配置
+比如：
+/var/log/sshd.log{
+
+	monthly	#一个月回滚一次
+	create 0664 root utmp	#创建新日志文件的权限是664
+		minsize 1M	#日志文件大小超过1MB执行rotate，否则不执行
+	rotate 1	#保留1份日志文件
+
+
+}
+
+
+
