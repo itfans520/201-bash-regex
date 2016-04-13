@@ -1,0 +1,21 @@
+##read命令：从键盘上读入数据，赋给变量
+例-1：
+read a b c
+1 2 3
+echo $a $b $c
+1 2 3
+例-2：
+#!/bin/bash
+echo "input first second third :"
+read first second third
+echo "the first parameter is $first"
+echo "the second parameter is $second"
+echo "the third parameter is $third"
+
+## expr 命令：对Shell整数型变量进行算数运算
+作用：Shell变量的算数运算
+语法：expr 表达式   #运算符之间必须有空格
+例-1：expr 3 + 5
+
+
+
