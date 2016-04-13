@@ -17,5 +17,82 @@ echo "the third parameter is $third"
 语法：expr 表达式   #运算符之间必须有空格
 例-1：expr 3 + 5
 
+例-2： 
+定义2个变量，分别是 var1=8，var2=2
+expr $var1 -5
+expr $var1 / $var2
+expr $var1 /* $var2
+注意：因为*在shell中具有特殊意义，所以在进行乘法含义调用时，
+需要进行转意。
+
+例-3：
+#!/bin/bash
+read a b c
+value1='expr $a + $b + $c'
+echo "The value of value1 is $value1"
+value2='expr $c / $b'
+echo "The value of value2 is $value2"
+value3='expr $c \* $b'
+echo "The value of value3 is $value3"
+value4='expr $a + $c / $b \* $a'
+echo "The value of value4 is $value4"
+
+例-4：
+var4=8
+expr 'expr 5 + 11' / $var4
+2
+
+例-5：
+var1=8
+var2=2
+var4='expr '$var1 / $var2'
+echo $var4
+4
+
+##变量测试语句 test
+格式： test 测试条件
+测试范围： 整数，字符串，文件
+
+字符串变量：
+test str1==str2 是否相等
+test str1 != str2 是否不相等
+test str1 测试字符串是否“不空”
+test -n str1 或 test -z str1 测试字符串是否“为空”
+
+整数测试：
+如：
+test int1 -eq int2 ==
+test int1 -ge int2 >=
+test int1 -gt int2 >
+test int1 -le int2 <=
+test int1 -lt int2 <
+test int1 -ne int2 !=
+说明：
+也可以省略test，携程 [int1 -lt int2]
+
+文件测试
+test -d file 测试是否为目录
+test -f file 测试是否为文件
+test -x file 测试是否可以执行
+test -r file 测试是否可以读
+test -w file 测试是否可以写
+test -e file 判断文件是否存在
+test -s file 判断文件大小，是否为空内容文件
+test -o file 判断是否为设备文件
+test -b file 判断是否为块文件
+test -c file 判断是否为字符文件
+说明：
+可以简写成： [-x file]
+
+
+
+
+
+
+
+
+
+
+
 
 

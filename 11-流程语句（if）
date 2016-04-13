@@ -1,0 +1,89 @@
+###### 流程语句 ######
+### if 语句
+语法：
+if 条件
+then
+<语句>
+fi
+扩展： 表示两个命令写在同一行，互不影响，用“;”分号。
+分号与&&的区别：
+分号：依然执行前面的语句，并输出；
+&&：如果语句中有任何一个地方出现错误，则全都不输出；
+
+例-1：
+#!/bin/bash
+echo "if test"
+if [ -x /bin/ls] ; then
+/bin/ls
+fi
+
+或
+
+例-1：
+#!/bin/bash
+echo "if test"
+if [ -x /bin/ls]
+then
+/bin/ls
+fi
+
+### if else 语句
+语法：
+if 条件1 ; then
+	命令1
+else
+	命令2
+fi
+
+例-1：
+#!/bin/bash
+if [ -x /etc/passwd ] ; then
+	/bin/passwd
+else
+	pwd
+fi
+
+例-2： 多条件的联合
+
+-a 或 && ： 逻辑与，仅当两个条件都成立时，结果为真；
+-o 或|| : 逻辑或，当两个条件中只要有一个成立，结果就为真。
+
+语法：
+if 条件1 ; then
+	命令1
+elif 条件2 ；then
+	命令2
+elif 条件3 ; then
+	命令3
+else
+	命令4
+	fi
+注意： elif 与 else 分区别
+
+例-1：测试文件类型
+#!/bin/bash
+
+echo "input a file name:"
+read file_name
+
+if [ -d $file_name ] ; then
+	echo "$file_name is a dir"
+elif [ -f $file_name ] ; then
+	echo " $file_name is file"
+elif [ -c $file_name -o -n $file_name ] ; then
+	echo "$file_name is a device file"
+else
+	echo “$file_name is an unknow file ”
+fi
+
+
+
+
+
+
+
+
+
+
+
+
