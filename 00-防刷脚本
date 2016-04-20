@@ -1,0 +1,15 @@
+    #!/bin/bash
+    keyword="1348122942234"
+    datetimes=$(date)
+    ccip=$(tail -n 5000 /var/log/nginx/access.log | grep "$keyword" | awk '{print $2}' | uniq -c | sort -nr | awk 'NF' | awk '{print $2}'| grep -v 10.10.11)
+	echo $datetimes "-" $ccip >>  iptables.cc.log
+   if [ ! -z "$ccip" ];then
+    for ip in $ccip;
+    do
+    if test -z "`/sbin/iptables -nL | grep $ip`";then
+    /sbin/iptables -I INPUT -s $ccip -j DROP
+    /etc/init.d/iptables save
+	/etc/init.d/iptables restart
+	fi
+    done
+    fi
